@@ -1,0 +1,40 @@
+name: Claude Issue Handler
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  fix-bug:
+    if: contains(github.event.issue.labels.*.name, 'bug')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Claude config
+        run: git clone https://github.com/stevenmburns/dot-claude-files ~/.claude
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "/fix-issue ${{ github.event.issue.number }}"
+          allowed_tools: "Bash,Glob,Grep,Read,Write,Edit"
+
+  build-feature:
+    if: contains(github.event.issue.labels.*.name, 'enhancement')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Claude config
+        run: git clone https://github.com/stevenmburns/dot-claude-files ~/.claude
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "/build-issue ${{ github.event.issue.number }}"
+          allowed_tools: "Bash,Glob,Grep,Read,Write,Edit"

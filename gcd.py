@@ -55,22 +55,21 @@ def gcd(a: int, b: int) -> int:
 
 
 def gcd_binary_unscaled(a: int, b: int) -> int:
-    # Variant of Knuth Algorithm B — starting point for removing the final << k
+    # Variant of Knuth Algorithm B using a bitmask instead of shifting a/b.
+    # m = 2^k is the lowest bit shared by both a and b; used as the unit of
+    # "oddness" throughout so the final << k rescale is not needed.
     if a == 0:
         return b
     if b == 0:
         return a
 
-    k = 0
-    while (a | b) & 1 == 0:
-        a >>= 1
-        b >>= 1
-        k += 1
+    s = a | b
+    m = s & -s  # isolate lowest shared power of 2
 
-    t = -b if (a & 1) else a
+    t = -b if (a & m) else a
 
     while True:
-        while t & 1 == 0:
+        while not (t & m):
             t >>= 1
 
         if t > 0:
@@ -82,4 +81,4 @@ def gcd_binary_unscaled(a: int, b: int) -> int:
         if t == 0:
             break
 
-    return a << k
+    return a

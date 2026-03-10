@@ -11,6 +11,13 @@ def gcd_subtraction(a: int, b: int) -> int:
     return a
 
 
+def gcd_modulo(a: int, b: int) -> int:
+    # Euclidean algorithm using modulo
+    while b:
+        a, b = b, a % b
+    return a
+
+
 def gcd(a: int, b: int) -> int:
     # Knuth TAOCP Vol.2 §4.5.2 Algorithm B (Binary GCD)
     if a == 0:

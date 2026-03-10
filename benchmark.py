@@ -27,5 +27,7 @@ for a, b in CASES:
         t = timeit.timeit(lambda: fn(a, b), number=REPEATS) / REPEATS
         unit = "s" if t >= 0.001 else "µs"
         display = t if t >= 0.001 else t * 1_000_000
-        print(f"gcd({a}, {b}){'':<{20 - len(str(a)) - len(str(b))}} {label}   {display:>10.3f} {unit}")
+        print(
+            f"gcd({a}, {b}){'':<{20 - len(str(a)) - len(str(b))}} {label}   {display:>10.3f} {unit}"
+        )
     print()

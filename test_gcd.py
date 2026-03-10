@@ -13,7 +13,7 @@ cases = [
     (0, 5, 5),
     (7, 7, 7),
     (48, 18, 6),
-    (16, 24, 8),   # gcd is a pure power of 2 (k=3)
+    (16, 24, 8),  # gcd is a pure power of 2 (k=3)
     (24, 36, 12),  # gcd has a power-of-2 factor: 12 = 4 * 3 (k=2)
 ]
 
@@ -83,4 +83,6 @@ def test_subtraction_slow_case():
     elapsed = time.perf_counter() - start
 
     assert result == 1
-    assert elapsed > 5, f"expected ~10s, got {elapsed:.1f}s — algorithm may have changed"
+    assert elapsed > 5, (
+        f"expected ~10s, got {elapsed:.1f}s — algorithm may have changed"
+    )

@@ -11,6 +11,8 @@ cases = [
     (0, 5, 5),
     (7, 7, 7),
     (48, 18, 6),
+    (16, 24, 8),   # gcd is a pure power of 2 (k=3)
+    (24, 36, 12),  # gcd has a power-of-2 factor: 12 = 4 * 3 (k=2)
 ]
 
 

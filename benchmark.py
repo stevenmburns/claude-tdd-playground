@@ -1,6 +1,6 @@
 import math
 import timeit
-from gcd import gcd, gcd_subtraction, gcd_modulo
+from gcd import gcd, gcd_subtraction, gcd_modulo, gcd_binary_unscaled
 
 CASES = [
     (12, 8),
@@ -13,6 +13,7 @@ IMPLEMENTATIONS = [
     ("subtraction", gcd_subtraction),
     ("binary    ", gcd),
     ("modulo    ", gcd_modulo),
+    ("binary_us ", gcd_binary_unscaled),
     ("math.gcd  ", math.gcd),
 ]
 
@@ -26,5 +27,7 @@ for a, b in CASES:
         t = timeit.timeit(lambda: fn(a, b), number=REPEATS) / REPEATS
         unit = "s" if t >= 0.001 else "µs"
         display = t if t >= 0.001 else t * 1_000_000
-        print(f"gcd({a}, {b}){'':<{20 - len(str(a)) - len(str(b))}} {label}   {display:>10.3f} {unit}")
+        print(
+            f"gcd({a}, {b}){'':<{20 - len(str(a)) - len(str(b))}} {label}   {display:>10.3f} {unit}"
+        )
     print()

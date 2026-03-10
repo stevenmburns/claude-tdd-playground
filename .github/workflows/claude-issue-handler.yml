@@ -12,6 +12,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up Claude config
@@ -20,7 +21,6 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: "/fix-issue ${{ github.event.issue.number }}"
-          allowed_tools: "Bash,Glob,Grep,Read,Write,Edit"
 
   build-feature:
     if: contains(github.event.issue.labels.*.name, 'enhancement')
@@ -29,6 +29,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up Claude config
@@ -37,4 +38,3 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: "/build-issue ${{ github.event.issue.number }}"
-          allowed_tools: "Bash,Glob,Grep,Read,Write,Edit"

@@ -1,7 +1,7 @@
 import math
 import time
 import pytest
-from gcd import gcd, gcd_subtraction
+from gcd import gcd, gcd_subtraction, gcd_modulo
 
 
 cases = [
@@ -18,6 +18,25 @@ cases = [
 def test_gcd_matches_math(a, b, expected):
     assert gcd(a, b) == expected
     assert gcd(a, b) == math.gcd(a, b)
+
+
+@pytest.mark.parametrize("a,b,expected", cases)
+def test_gcd_modulo(a, b, expected):
+    assert gcd_modulo(a, b) == expected
+    assert gcd_modulo(a, b) == math.gcd(a, b)
+
+
+@pytest.mark.slow
+def test_modulo_vs_subtraction_slow_case():
+    """gcd(1, 130_000_000) takes ~10s on subtraction, <1ms on modulo."""
+    N = 130_000_000
+
+    start = time.perf_counter()
+    result = gcd_modulo(1, N)
+    elapsed_modulo = time.perf_counter() - start
+
+    assert result == 1
+    assert elapsed_modulo < 0.01, f"modulo should be fast, got {elapsed_modulo:.4f}s"
 
 
 @pytest.mark.slow

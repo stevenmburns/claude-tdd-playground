@@ -68,17 +68,14 @@ def gcd_binary_unscaled(a: int, b: int) -> int:
 
     t = -b if (a & m) else a
 
-    while True:
-        while not (t & m):
-            t >>= 1
-
-        if t > 0:
-            a = t
+    while t:
+        if t & m:
+            if t > 0:
+                a = t
+            else:
+                b = -t
+            t = a - b
         else:
-            b = -t
-
-        t = a - b
-        if t == 0:
-            break
+            t >>= 1
 
     return a

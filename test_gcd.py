@@ -1,6 +1,8 @@
 import math
 import time
 import pytest
+from hypothesis import given, settings
+from hypothesis import strategies as st
 from gcd import gcd, gcd_subtraction, gcd_modulo, gcd_binary_unscaled
 
 
@@ -31,6 +33,30 @@ def test_gcd_modulo(a, b, expected):
 @pytest.mark.parametrize("a,b,expected", cases)
 def test_gcd_binary_unscaled(a, b, expected):
     assert gcd_binary_unscaled(a, b) == expected
+    assert gcd_binary_unscaled(a, b) == math.gcd(a, b)
+
+
+nonneg = st.integers(min_value=0, max_value=10_000_000)
+
+
+@pytest.mark.hypothesis
+@given(a=nonneg, b=nonneg)
+@settings(max_examples=500)
+def test_property_gcd_matches_math(a, b):
+    assert gcd(a, b) == math.gcd(a, b)
+
+
+@pytest.mark.hypothesis
+@given(a=nonneg, b=nonneg)
+@settings(max_examples=500)
+def test_property_gcd_modulo_matches_math(a, b):
+    assert gcd_modulo(a, b) == math.gcd(a, b)
+
+
+@pytest.mark.hypothesis
+@given(a=nonneg, b=nonneg)
+@settings(max_examples=500)
+def test_property_gcd_binary_unscaled_matches_math(a, b):
     assert gcd_binary_unscaled(a, b) == math.gcd(a, b)
 
 

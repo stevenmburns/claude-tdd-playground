@@ -1,7 +1,7 @@
 import math
 import time
 import pytest
-from gcd import gcd, gcd_subtraction, gcd_modulo
+from gcd import gcd, gcd_subtraction, gcd_modulo, gcd_binary_unscaled
 
 
 cases = [
@@ -24,6 +24,12 @@ def test_gcd_matches_math(a, b, expected):
 def test_gcd_modulo(a, b, expected):
     assert gcd_modulo(a, b) == expected
     assert gcd_modulo(a, b) == math.gcd(a, b)
+
+
+@pytest.mark.parametrize("a,b,expected", cases)
+def test_gcd_binary_unscaled(a, b, expected):
+    assert gcd_binary_unscaled(a, b) == expected
+    assert gcd_binary_unscaled(a, b) == math.gcd(a, b)
 
 
 @pytest.mark.slow

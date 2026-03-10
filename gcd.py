@@ -52,3 +52,34 @@ def gcd(a: int, b: int) -> int:
             break
 
     return a << k
+
+
+def gcd_binary_unscaled(a: int, b: int) -> int:
+    # Variant of Knuth Algorithm B — starting point for removing the final << k
+    if a == 0:
+        return b
+    if b == 0:
+        return a
+
+    k = 0
+    while (a | b) & 1 == 0:
+        a >>= 1
+        b >>= 1
+        k += 1
+
+    t = -b if (a & 1) else a
+
+    while True:
+        while t & 1 == 0:
+            t >>= 1
+
+        if t > 0:
+            a = t
+        else:
+            b = -t
+
+        t = a - b
+        if t == 0:
+            break
+
+    return a << k

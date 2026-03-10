@@ -1,6 +1,6 @@
 import math
 import timeit
-from gcd import gcd, gcd_subtraction, gcd_modulo
+from gcd import gcd, gcd_subtraction, gcd_modulo, gcd_binary_unscaled
 
 CASES = [
     (12, 8),
@@ -13,6 +13,7 @@ IMPLEMENTATIONS = [
     ("subtraction", gcd_subtraction),
     ("binary    ", gcd),
     ("modulo    ", gcd_modulo),
+    ("binary_us ", gcd_binary_unscaled),
     ("math.gcd  ", math.gcd),
 ]
 
